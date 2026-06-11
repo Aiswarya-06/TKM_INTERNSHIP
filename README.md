@@ -1,7 +1,6 @@
-# 15-Day Industrial Internship: Advanced RTL Architecture & Verilog HDL
-> Hosted by the **TKM College of Engineering (TKMCE)**
+# Advanced RTL Architecture & Verilog HDL
 
-This repository forms a structured, verified portfolio of synthesizable Verilog HDL hardware designs, verification testbenches, and physical layout diagnostics compiled during the 15-day Industrial Training Program. All modules are designed for deterministic hardware execution and fully verified via behavioral and timing simulation.
+This repository forms a structured, verified portfolio of synthesizable Verilog HDL hardware designs, verification testbenches, and physical layout diagnostics compiled during a 15-day Industrial Summer Internship program. All modules are designed for deterministic hardware execution and fully verified via behavioral and timing simulation.
 
 ---
 
@@ -12,6 +11,12 @@ This repository forms a structured, verified portfolio of synthesizable Verilog 
 *   **Institution:** TKM College of Engineering (TKMCE)
 *   **EDA Toolchain:** Xilinx Vivado Design Suite
 *   **Target Language:** Verilog HDL (IEEE 1364-2001)
+
+### 🎯 Key Technical Focus Areas
+*   **ASIC & System-on-Chip (SoC) Development**
+*   **Design for Testability (DFT)**
+*   **Physical Design & Low-Power/High-Performance IC Layout**
+*   **RTL Simulation & Design Verification (DV)**
 
 ---
 
