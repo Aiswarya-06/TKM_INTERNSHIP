@@ -96,11 +96,11 @@ Advances into multi-module structural architecture, cross-domain data synchroniz
     *   🧪 **Testbench:** [`day3/Face_Scan_system/tb/fss_tb.v`](day3/Face_Scan_system/tb/fss_tb.v) — System-level validation module auditing handshake signals.
     *   📖 **Documentation:** [`day3/Face_Scan_system/fss.md`](day3/Face_Scan_system/fss.md) — Queue flow control architecture specifications document.
 *   **Non-Overlapping Sequence Detector (1110 Binary Stream)**
-    *   📁 **RTL Design:** [`day3/Sequence detector/design/sequence.v`](day3/Sequence detector/design/sequence.v) — Two-always-block Finite State Machine (FSM) resetting immediately post-match.
-    *   🧪 **Testbench:** [`day3/Sequence detector/tb/sequence_tb.v`](day3/Sequence detector/tb/sequence_tb.v) — Serial data driver ensuring structural non-overlapping validation.
-    *   📖 **Documentation:** [`day3/Sequence detector/sd.md`](day3/Sequence detector/sd.md) — State transition matrix mapping documentation.
+    *   📁 **RTL Design:** [`day3/Sequence%20detector/design/sequence.v`](day3/Sequence%20detector/design/sequence.v) — Two-always-block Finite State Machine (FSM) resetting immediately post-match.
+    *   🧪 **Testbench:** [`day3/Sequence%20detector/tb/sequence_tb.v`](day3/Sequence%20detector/tb/sequence_tb.v) — Serial data driver ensuring structural non-overlapping validation.
+    *   📖 **Documentation:** [`day3/Sequence%20detector/sd.md`](day3/Sequence%20detector/sd.md) — State transition matrix mapping documentation.
     *   🖼️ **State Diagram:**
-        ![FSM State Diagram Graph](day3/Sequence detector/Sequence_detector.png)
+        ![FSM State Diagram Graph](day3/Sequence%20detector/Sequence_detector.png)
 
 ---
 
