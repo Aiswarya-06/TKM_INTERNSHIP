@@ -7,24 +7,11 @@ This repository forms a structured, verified portfolio of synthesizable Verilog 
 
 ## 👤 Engineering Trainee Profile
 
-<table align="center" width="100%">
-  <tr>
-    <td><b>Name</b></td>
-    <td>Aiswarya S</td>
-    <td><b>EDA Toolchain</b></td>
-    <td>Xilinx Vivado Design Suite</td>
-  </tr>
-  <tr>
-    <td><b>Discipline</b></td>
-    <td>Electronics & Communication Engineering</td>
-    <td><b>Hardware Language</b></td>
-    <td>Verilog HDL (IEEE 1364-2001)</td>
-  </tr>
-  <tr>
-    <td><b>Institution</b></td>
-    <td colspan="3">TKM College of Engineering (TKMCE)</td>
-  </tr>
-</table>
+*   **Name:** Aiswarya S
+*   **Discipline:** Electronics & Communication Engineering
+*   **Institution:** TKM College of Engineering (TKMCE)
+*   **EDA Toolchain:** Xilinx Vivado Design Suite
+*   **Target Language:** Verilog HDL (IEEE 1364-2001)
 
 ---
 
