@@ -14,7 +14,7 @@ The execution matrix operates on a clock-synchronized pipeline:
 
 The screenshot below validates functional compliance within the Xilinx Vivado Behavioral Logic Simulator. It traces the operational transitions across all four `mod` register configurations, active clock phases, and reset thresholds up to a `250 ns` execution margin.
 
-![Universal Shift Register Simulation Trace](../../day2/usr/usr_simulation.png)
+![Universal Shift Register Simulation Trace](usr.png)
 
 ---
 
