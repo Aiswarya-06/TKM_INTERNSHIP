@@ -1,87 +1,87 @@
-# TKM Industrial Internship: Verilog HDL & Digital Design
+# 15-Day Digital Design Internship | TKMCE
 
-This repository serves as a structured archive of Verilog HDL hardware designs, verification testbenches, and simulation results compiled during the 15-day industrial internship program hosted by TKM College of Engineering.
+This repository contains the digital hardware architectures, simulation testbenches, and verification logs developed during the 15-day industrial internship program hosted by the TKM College of Engineering. 
 
 ---
 
-## 👤 Trainee Profile
+## 🧑‍💻 Student Profile
 
 *   **Name:** Aiswarya S
-*   **Discipline:** Electronics and Communication Engineering
-*   **Institution:** TKM College of Engineering (TKMCE)
-*   **Development Environment:** Xilinx Vivado Design Suite
-*   **Target Language:** Verilog HDL
+*   **Major:** Electronics and Communication Engineering
+*   **Affiliation:** TKM College of Engineering (TKMCE)
+*   **Toolchain:** Xilinx Vivado Design Suite
+*   **Hardware Description Language:** Verilog HDL
 
 ---
 
-## 📅 Daily Progress & Project Structure
+## 📅 Chronological Module Registry
 
-### 📂 Day 1: Basic Arithmetic Circuits
-Comprehensive design and verification of core combinatorial arithmetic modules.
+### 📂 Day 01: Combinational Arithmetic Engines
+Focus on the implementation and validation of fundamental binary addition units.
 
-*   **Binary Coded Decimal (BCD) Adder**
-    *   `day1/bcd.v` — Core BCD design architecture.
-    *   `day1/bcd_tb.v` — Testbench module verifying correct decimal summation.
-    *   `day1/bcd.md` — Technical notes and design specifications.
+*   **BCD Adder Unit**
+    *   `day1/bcd.v` — RTL logic for decimal-corrected binary addition.
+    *   `day1/bcd_tb.v` — Stimulus block validating arithmetic boundaries.
+    *   `day1/bcd.md` — Behavioral rules and block documentation.
 *   **Ripple Carry Adder (RCA)**
-    *   `day1/fulladd.v` — Full adder structural cell.
-    *   `day1/RCA.v` — Chain of full adders forming the ripple architecture.
-    *   `day1/rca_tb.v` — Verification environment for multi-bit addition.
-    *   `day1/rca.md` — Arithmetic timing and propagation delay analysis.
-    *   `day1/rca.png.png` — Schematic/Waveform visualization.
+    *   `day1/fulladd.v` — 1-bit full adder building block.
+    *   `day1/RCA.v` — Multi-bit cascaded adder fabric.
+    *   `day1/rca_tb.v` — Comprehensive functional validation file.
+    *   `day1/rca.md` — Propagation delay and bit-carry analysis.
+    *   `day1/rca.png.png` — RTL schematic capture.
 
 ---
 
-### 📂 Day 2: Sequential Elements & Combinational Logic
-Exploration of synchronous circuits, data storage cells, and input prioritization.
+### 📂 Day 02: Synchronous Memory Cells & Data Routing
+Exploration of clock-edge triggered storage blocks and input prioritization matrices.
 
 *   **SR Flip-Flop**
-    *   `day2/sr_ff.v` — Gate-level or behavioral SR flip-flop design.
-    *   `day2/sr_ff_tb.v` — Simulation testing for set, reset, and invalid states.
+    *   `day2/sr_ff.v` — Logic model for set-reset state behavior.
+    *   `day2/sr_ff_tb.v` — Test suite handling normal and invalid state transitions.
 *   **D Flip-Flop**
-    *   `day2/d_ff.v` — Storage element catching data at the clock edge.
-    *   `day2/d_fftb.v` — Input stimulation testbench.
-    *   `day2/Schematic_d_ff.png` — Synthesized hardware schematic.
-*   **Priority/Binary Encoder**
-    *   `day2/enc.v` — Combinational encoder logic implementation.
-    *   `day2/enc_tb.v` — Verification of prioritized input routing.
-    *   `day2/Schematic.png` & `day2/encoder4x2.png` — Visual hardware schematics.
+    *   `day2/d_ff.v` — Edge-triggered data latching circuit.
+    *   `day2/d_fftb.v` — Signal injection verification script.
+    *   `day2/Schematic_d_ff.png` — Gate-level circuit visualization.
+*   **Encoder Subsystem**
+    *   `day2/enc.v` — Multi-input encoding prioritization logic.
+    *   `day2/enc_tb.v` — Functional test cases for line encoding.
+    *   `day2/Schematic.png` & `day2/encoder4x2.png` — Synthesized hardware diagrams.
 *   **Universal Shift Register (USR)**
-    *   `day2/usr.v` — Bidirectional shift and parallel load register design.
-    *   `day2/usr_tb.v` — Comprehensive shift mode simulation sequence.
+    *   `day2/usr.v` — Multi-mode register handling bi-directional shifting and parallel operations.
+    *   `day2/usr_tb.v` — Verification script covering all internal operational modes.
 
 ---
 
-### 📂 Day 3: Advanced Systems & Sequence Tracking
-Complex state tracking and modular system grouping.
+### 📂 Day 03: Sequential State Machines & Stream Processing
+Implementation of synchronized memory arrays and pattern tracking automata.
 
-*   **Face Scan System**
-    *   `day3/top.v` — Structural top-level module linking components.
-    *   `day3/face_mod.v` — Sensory scanning processing unit.
-    *   `day3/fifo.v` — First-In, First-Out memory buffer managing data synchronization.
-    *   `day3/mod_out.v` — Output formatting state controller.
-    *   `day3/fss_tb.v` — Testbench simulating dynamic input data streams.
-*   **Sequence Detector**
-    *   `day3/sequence.v` — Finite State Machine (FSM) capturing a dedicated bitstream.
-    *   `day3/sequence_tb.v` — Multi-pattern sequential verification block.
-    *   `day3/Sequence_detector.png` — FSM state transition diagram or waveform.
-
----
-
-### 📂 Day 4: Scalable Block Generation
-Parameterized logic generation and structured code layout.
-
-*   **Block Generator 88**
-    *   `day4/block_gen88/block_generator.v` — Core module implementing conditional `generate` blocks.
-    *   `day4/block_gen88/tb.v` — Array stimulation environment.
-    *   `day4/block_gen88/bg88.png` — Multi-block execution waveforms.
+*   **Face Scanning System Infrastructure**
+    *   `day3/top.v` — Top-level structural wrapper integrating the system components.
+    *   `day3/face_mod.v` — Sensor stream processing engine.
+    *   `day3/fifo.v` — Asynchronous queue buffer managing internal data rates.
+    *   `day3/mod_out.v` — Output formatting interface manager.
+    *   `day3/fss_tb.v` — System-level validation setup with active video/data inputs.
+*   **Pattern Sequence Detector**
+    *   `day3/sequence.v` — Finite State Machine (FSM) capturing custom serial data sequences.
+    *   `day3/sequence_tb.v` — Serial stream bit injection simulation.
+    *   `day3/Sequence_detector.png` — State transition graph layout.
 
 ---
 
-## 🛠️ Simulation & Synthesis Flow
+### 📂 Day 04: Parameterized Logic Automation
+Leveraging compiler directives for scalable hardware generation.
 
-All modules have been developed, synthesized, and verified using **Xilinx Vivado**.
+*   **Block Generator 88 Project**
+    *   `day4/block_gen88/block_generator.v` — Structural code exploiting looping structures for block expansion.
+    *   `day4/block_gen88/tb.v` — Array boundary verification block.
+    *   `day4/block_gen88/bg88.png` — Execution timing diagram.
 
-1. **Create Project:** Open Vivado and load the source design files (`.v`).
-2. **Add Testbench:** Attach the associated testbench (`_tb.v`) file as a simulation source.
-3. **Run Behavioral Simulation:** Analyze the output waveforms inside Vivado Simulator to ensure timing and logic align perfectly.
+---
+
+## ⚙️ Development & Verification Workflow
+
+The entire design library is constructed and simulated within the **Xilinx Vivado** native environment.
+
+1. **Source Integration:** Design assets (`.v`) are tracked as design sources.
+2. **Verification Loop:** Associated testbenches (`_tb.v`) are executed to trace functional correctness.
+3. **Waveform Inspection:** Timing behaviors and logic maps are audited via the built-in Vivado logic simulator.
