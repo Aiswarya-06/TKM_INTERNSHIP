@@ -120,15 +120,62 @@ Examines hardware scalability, automated module replication, and compiler-driven
         ![Block Generator Waveform Diagram Capture](day4/block_gen88/bg88.png)
 
 ---
+### 🔌 Day 05: SystemVerilog Interfaces & Behavioral Hardware Simplification
+Advances verification style by deploying explicit `interface` containers to encapsulate port routing, completely eliminating structural module line overhead.
+
+*   **Interface-Bundled Decimal Boundary Corrected (BCD) Adder Unit**
+    *   🧪 **Testbench Suite:** [`day5/BCD_interface/tb/bcd_tb.v`](day5/BCD_interface/tb/bcd_tb.v) — Compilation tracking the interface-wrapped execution routing vectors.
+    *   📖 **Documentation:** [`day5/BCD_interface/bcd.md`](day5/BCD_interface/bcd.md) — Logic profile documenting automated decimal wrap boundaries (+6 vector additions).
+*   **Memory-Mapped FIFO with Interface Port Groups**
+    *   🧪 **Testbench Suite:** [`day5/fifo%20interface/tb/fifo_tb.v`](day5/fifo%20interface/tb/fifo_tb.v) — Pointer storage testing core communicating through an interface container block.
+    *   📖 **Documentation:** [`day5/fifo%20interface/fifo.md`](day5/fifo%20interface/fifo.md) — Simulation trace report validating timing parameters and status configurations.
+
+---
+
+### 💎 Day 06: Object-Oriented Transactions & Procedural Stimulus Tasks
+Transitions into functional validation structures, implementing clock-synchronized tracking tasks and Object-Oriented Programming (OOP) constrained random testing.
+
+*   **FIFO Object-Oriented Transaction Verification Model**
+    *   🧪 **Testbench Suite:** [`day6/fifo_transaction/tb/fifo_tb.v`](day6/fifo_transaction/tb/fifo_tb.v) — Packet transaction runner checking control constraints.
+    *   📖 **Documentation:** [`day6/fifo_transaction/fifo.md`](day6/fifo_transaction/fifo.md) — Logic trace logging structural validations for transaction packet behaviors.
+*   **Procedural Edge-Synchronized Testing Environment**
+    *   📁 **Simulation Module:** [`day6/task1/simulation/task1.sv`](day6/task1/simulation/task1.sv) — Core file containing testing logic tasks and random operand evaluations.
+    *   📖 **Documentation:** [`day6/task1/task1.md`](day6/task1/task1.md) — Document analysis tracing edge executions.
+    *   🖼️ **Simulation:**
+        ![Procedural Clock-Task Waveform Window](day6/task1/waveform.png)
+
+---
 
 ## ⚙️ Engineering Simulation & Verification Flow
 
 All intellectual property (IP) blocks in this library are developed, synthesized, and rigorously tested inside the native **Xilinx Vivado Design Suite** logic simulation interface.
 
-```drawio
-[RTL Design Source (.v)] ──> [Attach Verification Testbench (_tb.v)] ──> [Execute Behavioral Simulation] ──> [Audit Waveforms via Logic Analyzer]
+```text
+[RTL Design Source (.v / .sv)] ──> [Attach Interface or Task-Driven TB] ──> [Execute Behavioral Simulation] ──> [Audit Waveforms & Object Classes]
 ```
 
-1.  **RTL Source Ingestion:** Hardware modules under the respective `/design/` trees are tracked as primary logic targets.
-2.  **Verification Phase:** Matching simulation setups under the `/tb/` components act as active stimulus benches, running clock-synchronized test profiles.
-3.  **Waveform Diagnostics:** Output timing charts are carefully audited using the Vivado Logic Analyzer to confirm total logical and architectural consistency before saving.
+1.  **RTL Source Ingestion:** Hardware modules under the respective `/design/`, `/tb/`, or `/simulation/` trees are tracked as primary logic targets.
+2.  **Verification Phase:** Matching simulation setups act as active stimulus benches, running clock-synchronized test profiles or processing randomized class transactions.
+3.  **Waveform & Object Diagnostics:** Output timing charts are carefully audited using the Vivado Logic Analyzer, and randomized class parameters are checked inside the Tcl Console to confirm total consistency.
+
+---
+
+## 🚀 Execution Instructions for Vivado Logic Simulator
+
+All scripts are written in standard ANSI Verilog or modern SystemVerilog extensions. Follow these steps to run simulations:
+
+1. Launch **Vivado Design Suite IDE**.
+2. Create a clean project shell and select your preferred device target.
+3. Import the specific workspace `.v` or `.sv` file as a target source inside **Simulation Sources**.
+4. Right-click the corresponding top-level testbench module within the **Hierarchy Panel** (e.g., `BCD_tb`, `fifo_tb`, `tb_transaction`, or `tb`) and select **Set as Top**.
+5. Select **Run Simulation** → **Run Behavioral Simulation** in the Flow Navigator.
+6. Check output strings printed in the **Tcl Console** or inspect cycle timings inside the **Waveform Viewer** workspace.
+
+---
+
+## 🏁 Conclusion
+
+The successful implementation of the Day 5 and Day 6 exercises demonstrates a distinct transition from traditional, pin-level structural hardware descriptions to high-level, scalable **SystemVerilog Verification methodologies**. 
+
+By utilizing modular **interfaces**, the code size and port-mapping complexities were dramatically reduced while enhancing testbench scannability. Furthermore, the incorporation of **procedural synchronization tasks** and **object-oriented transaction encapsulation** sets up a production-ready framework for Constrained Random Verification (CRV). These modules comprehensively fulfill the engineering specifications for robust, hazard-free digital IP validation within modern verification environments.
+
