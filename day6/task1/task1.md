@@ -15,8 +15,6 @@ This document records the simulation waveform trace and behavioral evaluation fo
 
 ![Vivado Simulation Waveform Window](waveform.png)
 
-*Note: Replace `waveform.png` with the actual filename or path of your saved image to render it properly in your markdown viewer.*
-
 ---
 
 ## Waveform Signal Data Values
