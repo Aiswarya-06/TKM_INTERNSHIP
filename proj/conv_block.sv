@@ -8,7 +8,7 @@ module conv_block #(
     parameter PIX_WIDTH          = 8     ,
     parameter WEIGHT_WIDTH       = 10    ,
     parameter WEIGHT_FRACT_WIDTH = 5     ,
-    parameter TRUNK              = "TRUE",
+    parameter string TRUNK       = "TRUE",
     parameter IMG_WIDTH          = 28    ,
     parameter IMG_HEIGHT         = 28    ,
     parameter KERNEL_DIMENSION   = 3     ,
@@ -73,6 +73,19 @@ module conv_block #(
     generate
         for (row = 0; row < OUT_DIMENSION; row++) begin : gen_row
             for (col = 0; col < IN_DIMENSION; col++) begin : gen_col
+                
+                // Fix: Temporary unpacked array to bridge type compatibility
+                logic signed [WEIGHT_WIDTH-1:0] local_kernel [0:KERNEL_DIMENSION-1][0:KERNEL_DIMENSION-1];
+                
+                // Continuous unpack assignment conversion block
+                always_comb begin
+                    for (int r = 0; r < KERNEL_DIMENSION; r++) begin
+                        for (int c = 0; c < KERNEL_DIMENSION; c++) begin
+                            local_kernel[r][c] = kernel[row][col][r][c];
+                        end
+                    end
+                end
+
                 conv #(
                     .PIX_WIDTH         (PIX_WIDTH),
                     .WEIGHT_WIDTH      (WEIGHT_WIDTH),
@@ -93,7 +106,7 @@ module conv_block #(
                     .o_valid  (valid[row][col]),
                     .o_sop    (sop[row][col]),
                     .o_eop    (eop[row][col]),
-                    .kernel   (kernel[row][col]),
+                    .kernel   (local_kernel), // Pass the compatible unpacked matrix
                     .ready    (ready[row][col]),
                     .cols_cntr(),
                     .rows_cntr()
@@ -116,7 +129,7 @@ module conv_block #(
                 for (int z = 0; z < IN_DIMENSION; z++) begin
                     dynamic_sum = dynamic_sum + $signed(conv_outputs[x][z]);
                 end
-                sum_pipeline[x] <= dynamic_sum; // Broken into register stages to maximize Fmax timing closing
+                sum_pipeline[x] <= dynamic_sum; // Broken into register stages to maximize Fmax timing
             end
         end
     end
