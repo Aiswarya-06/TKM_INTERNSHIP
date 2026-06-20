@@ -1,8 +1,9 @@
 `timescale 1ns / 1ps
 //////////////////////////////////////////////////////////////////////////////////
 // Module Name: conv
-// Description: Refactored Parallel Fixed-point 2D Convolution Engine (SystemVerilog)
-// Fixes Applied: Resolved RTL simulation Pass-Through Read/Write 'X' Race conditions
+// Description: Refactored Parallel Fixed-point 2D Convolution Engine with Correct BRAM Inference
+// Fixes Applied: Re-architected Line Buffers to strictly match Vivado BRAM templates.
+//                Fixed syntax block termination and parameterized combinational summation.
 //////////////////////////////////////////////////////////////////////////////////
 
 module conv #(
@@ -41,7 +42,7 @@ module conv #(
     localparam int MAX_DEPTH = 1920;
 
     // -------------------------------------------------------------------------
-    // Line Buffers (Inferred Block RAMs)
+    // Line Buffers (Correctly Inferred Block RAMs via Standard Vivado Templates)
     // -------------------------------------------------------------------------
     logic [11:0] line_buf_waddr;
     logic [11:0] line_buf_raddr;
@@ -65,21 +66,26 @@ module conv #(
 
     generate
         for (genvar k = 0; k < KERNEL_DIMENSION-1; k++) begin : gen_line_buffers
-            logic [PIX_WIDTH-1:0] ram [0:MAX_DEPTH-1];
+            // Explicit attribute to guide the synthesis engine
+            (* ram_style = "block" *) logic [PIX_WIDTH-1:0] ram [0:MAX_DEPTH-1];
             logic [PIX_WIDTH-1:0] din;
+            logic [PIX_WIDTH-1:0] ram_read_reg;
             
             assign din = (k == 0) ? i_data : line_buf_out[k-1];
             
-            // FIXED: Emulated a pass-through bypass mechanism to eliminate 
-            // behavioral simulator simultaneous read/write 'X' race conditions.
+            // STRICT VIVADO BRAM TEMPLATE: Synchronous Write and Synchronous Read
             always_ff @(posedge clk) begin
-                if (clk_en && (i_valid || !ready)) begin
-                    ram[line_buf_waddr] <= din;
-                    line_buf_out[k]     <= din; // Push directly to output registers on write cycle
-                end else begin
-                    line_buf_out[k]     <= ram[line_buf_raddr]; // Standard Read cycle
+                if (clk_en) begin
+                    if (i_valid || !ready) begin
+                        ram[line_buf_waddr] <= din;
+                    end
+                    ram_read_reg <= ram[line_buf_raddr];
                 end
             end
+
+            // Bypass mechanism handled downstream in logic fabric, preserving clean BRAM boundaries
+            // This prevents the 'X' simulator race conditions while keeping physical hardware inference happy.
+            assign line_buf_out[k] = (clk_en && (i_valid || !ready)) ? din : ram_read_reg;
         end
     endgenerate
 
@@ -117,10 +123,9 @@ module conv #(
     // -------------------------------------------------------------------------
     // Convolution Mathematics (Fixed Array Fabric)
     // -------------------------------------------------------------------------
+    (* use_dsp = "yes" *)
     logic signed [WEIGHT_WIDTH+PIX_WIDTH-1:0] mult_result [0:KERNEL_DIMENSION-1][0:KERNEL_DIMENSION-1];
 
-    // FIXED: Guarded multiplication fabric logic to prevent uninitialized 
-    // sliding window states ('X') from leaking into the adder tree.
     always_ff @(posedge clk or negedge rst_n) begin : proc_multiplying
         if (~rst_n) begin
             mult_result <= '{default: '0};
@@ -128,12 +133,11 @@ module conv #(
             if (i_valid) begin
                 for (int i = 0; i < KERNEL_DIMENSION; i++) begin
                     for (int y = 0; y < KERNEL_DIMENSION; y++) begin
-                        // Padding a leading zero to unsigned pixel before conversion to prevent signed extension bugs
                         mult_result[i][y] <= $signed({1'b0, delayed_pix[(KERNEL_DIMENSION-1)-i][(KERNEL_DIMENSION-1)-y]}) * kernel[i][y];
                     end
                 end
             end else begin
-                mult_result <= '{default: '0}; // Force mathematical zero states when input stream is stalling
+                mult_result <= '{default: '0};
             end
         end
     end
@@ -143,11 +147,15 @@ module conv #(
     logic signed [SUM1_WIDTH-1:0] total_combinational_sum;
     logic signed [SUM1_WIDTH-1:0] mult_sum_out;
 
-    // Parallel Structural Adder tree to preserve timing closure and prevent structural simulator glitches
-    assign total_combinational_sum = 
-        mult_result[0][0] + mult_result[0][1] + mult_result[0][2] +
-        mult_result[1][0] + mult_result[1][1] + mult_result[1][2] +
-        mult_result[2][0] + mult_result[2][1] + mult_result[2][2];
+    // Parameterized Combinational Summation
+    always_comb begin
+        total_combinational_sum = '0;
+        for (int i = 0; i < KERNEL_DIMENSION; i++) begin
+            for (int y = 0; y < KERNEL_DIMENSION; y++) begin
+                total_combinational_sum = total_combinational_sum + mult_result[i][y];
+            end
+        end
+    end
 
     always_ff @(posedge clk or negedge rst_n) begin : proc_mult_sum
         if (~rst_n) begin
@@ -157,7 +165,7 @@ module conv #(
         end
     end
 
-    // Normalization / Activation ReLU Logic Mapping
+    // Normalization / Activation Logic
 `ifdef RELU
     assign o_data = (mult_sum_out < 0) ? '0 : ((|mult_sum_out[SUM1_WIDTH-1:PIX_WIDTH]) ? ({PIX_WIDTH{1'b1}}) : mult_sum_out[PIX_WIDTH-1:0]);
 `else 
