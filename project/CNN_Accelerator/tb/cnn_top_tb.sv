@@ -57,7 +57,7 @@ module CNN_TB ();
     logic                          o_img_done;
 
     logic                          o_valid;
-    logic [CLASSES_QNT-1:0][31:0]  classes;
+    logic [CLASSES_QNT-1:0][15:0]  classes;
 
     logic                          i_cfg_valid     = 0;
     logic [WEIGHT_WIDTH-1:0]       i_cfg_data      = '0;
