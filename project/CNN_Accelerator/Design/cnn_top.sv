@@ -39,7 +39,7 @@ module cnn_top import cnn_config_pkg::*; #(
 
     // ── classification output ────────────────────────────────────────────
     output logic                          o_valid,
-    output logic [CLASSES_QNT-1:0][31:0]  classes,
+    output logic [CLASSES_QNT-1:0][15:0]  classes,
 
     // ── runtime weight-loader external interface (NEW) ──────────────────
     // layer_sel : 0..CONV_NUMB-1            -> conv stage  [layer_sel]
